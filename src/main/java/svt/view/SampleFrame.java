@@ -22,10 +22,11 @@ public class SampleFrame extends JFrame implements ActionListener {
         setSize(250, 200);
         setLocationRelativeTo(null);
         textArea = new TextArea(10, 30);
-        menuBar = new MenuBar();
-        menu = new Menu("File");
-        itemOpen = new MenuItem("Open...");
-        itemExit = new MenuItem("Exit");
+        textArea.append(" Введите через меню имя файла\n");
+                menuBar = new MenuBar();
+        menu = new Menu("Файл");
+        itemOpen = new MenuItem("Открыть...");
+        itemExit = new MenuItem("Выйти");
 
         menu.add(itemOpen);
         menu.add("-");
@@ -50,14 +51,15 @@ public class SampleFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(itemOpen)) {
             fileDialog = new FileDialog(this, "Open file");
-            fileDialog.setVisible(true);
+           fileDialog.setVisible(true);
             String fd = fileDialog.getDirectory();
             String fn = fileDialog.getFile();
 
-            textArea.append("\n" + "    Input File  : " + "\n");
+            textArea.append("\n" + "  Входной файл  : " + "\n");
             textArea.append(fd + fn + "\n" + "\n");
-            textArea.append("    Output File : " + "\n");
+            textArea.append("    Выходной файл : " + "\n");
             textArea.append(fd + "out" + fn + "\n");
+
             String readerFile = fd + fn;
             String writerFile = fd + "out" + fn;
             try {
