@@ -1,32 +1,39 @@
 package svt.view;
-
 import javax.swing.*;
-        import java.awt.*;
-        import java.awt.event.*;
-        import java.io.FileNotFoundException;
-        import java.io.FileReader;
-        import java.io.FileWriter;
-        import java.io.IOException;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
-public class SampleFrame extends JFrame implements ActionListener {
-    private MenuBar menuBar;
-    private Menu menu;
-    private MenuItem itemOpen;
-    private MenuItem itemExit;
+public class SampleFrame2  extends JFrame implements ActionListener {
+    private JMenuBar menuBar;
+    private JMenu menu;
+    private JMenuItem itemOpen;
+    private JMenuItem itemExit;
     private FileDialog fileDialog;
-    private TextArea textArea;
+    private JLabel label1;
+    private JLabel label2;
+    private JLabel label3;
+    private JLabel label4;
 
-    public SampleFrame(String title) {
+
+    public SampleFrame2(String title) {
         super(title);
         setVisible(false);
         setSize(250, 200);
         setLocationRelativeTo(null);
-        textArea = new TextArea(10, 30);
-        textArea.append(" Введите через меню имя файла\n");
-        menuBar = new MenuBar();
-        menu = new Menu("Файл");
-        itemOpen = new MenuItem("Открыть...");
-        itemExit = new MenuItem("Выход");
+
+        label1=new JLabel( "  Входной файл  : ");
+        label2=new JLabel( );
+        label3=new JLabel("    Выходной файл : " );
+        label4=new JLabel();
+
+        menuBar = new JMenuBar();
+        menu = new JMenu("Файл");
+        itemOpen = new JMenuItem("Открыть...");
+        itemExit = new JMenuItem("Выход");
 
         menu.add(itemOpen);
         menu.add("-");
@@ -35,10 +42,16 @@ public class SampleFrame extends JFrame implements ActionListener {
         itemOpen.addActionListener(this);
         itemExit.addActionListener(this);
 
-        setMenuBar(menuBar);
+        setJMenuBar(menuBar);
+
         // this.addWindowListener(this);
-        setLayout(new BorderLayout());
-        add("Center", textArea);
+        setLayout(new FlowLayout());
+        add(label1);
+        add(label2);
+        add(label3);
+        add(label4);
+        label1.setVisible(false);
+        label3.setVisible(false);
 
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent we) {
@@ -46,6 +59,8 @@ public class SampleFrame extends JFrame implements ActionListener {
             }
         });
     }
+
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -55,10 +70,10 @@ public class SampleFrame extends JFrame implements ActionListener {
             String fd = fileDialog.getDirectory();
             String fn = fileDialog.getFile();
 
-            textArea.append("\n" + "  Входной файл  : " + "\n");
-            textArea.append(fd + fn + "\n" + "\n");
-            textArea.append("    Выходной файл : " + "\n");
-            textArea.append(fd + "out" + fn + "\n");
+            label1.setVisible(true);
+            label3.setVisible(true);
+            label2.setText(fd + fn );
+           label4.setText(fd + "out" + fn );
 
             String readerFile = fd + fn;
             String writerFile = fd + "out" + fn;
@@ -89,7 +104,7 @@ public class SampleFrame extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        SampleFrame sampleFrame = new SampleFrame("Delete Commas");
+        SampleFrame2 sampleFrame = new SampleFrame2("Delete Commas");
         sampleFrame.setVisible(true);
     }
 }
